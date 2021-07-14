@@ -1,0 +1,25 @@
+# Texte
+fp = PyPlot.matplotlib.font_manager.FontProperties(style="normal", weight="normal", size="x-large", stretch="extra-expanded")
+text_path = PyPlot.matplotlib.text.TextPath((0, 0), "Troposphere", size=5, zorder=20, usetex=true)
+trans = PyPlot.matplotlib.transforms.Affine2D().rotate(0).translate(10, 7.5)
+p1 = PyPlot.matplotlib.patches.PathPatch(trans.transform_path(text_path), ec="none", fc="k")
+ax.add_patch(p1)
+PyPlot.art3D.pathpatch_2d_to_3d(p1, z=0, zdir="x")
+
+
+# Zone de déploiement
+vertices = [(-10,-10),(-10,10),(10,10),(10,-10),(-10,-10)]
+codes = [Path.MOVETO,Path.LINETO,Path.LINETO,Path.LINETO,Path.CLOSEPOLY]
+path = PyPlot.matplotlib.path.Path([e .+ (position.x, position.y) for e in vertices], codes)
+pathpatch = PyPlot.matplotlib.patches.PathPatch(path, facecolor="darkorange", zorder=100, alpha=1)
+ax.add_patch(pathpatch)
+PyPlot.art3D.pathpatch_2d_to_3d(pathpatch, z=10, zdir="z")
+#plot_surface(x.+position.x, y.+position.y, z, color="#40916c", alpha=1, shade=false) 
+
+
+
+
+
+
+
+

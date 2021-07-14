@@ -1,0 +1,129 @@
+# Environnement
+ion()
+using3D()
+fig = figure("Outil de visualisation") # figsize=(16,9), tight_layout=true
+fullscreen() 
+ax = fig.add_subplot(111, projection="3d") 
+ax.computed_zorder = true
+ax.margins(0)
+ax.view_init(elev=15, azim=-5)
+ax.dist = 10
+fig.set_facecolor("#14213d")
+ax.set_facecolor("#14213d")
+axis("off")
+ax.grid(false)
+ax.set_zticks([0, 15, 20, 50, 85, 500])
+xlim(0, 1000)
+ylim(0, 1000)
+zlim(0, 50)
+tight_layout(pad=0)
+
+# Sol
+x = [0 0; 1000 1000]
+y = [0 1000; 0 1000]
+z = [0 0; 0 0]
+plot_surface(x,y,z, color="#2d6a4f", alpha=1, shade=false, zorder=19) 
+######### Ciel
+
+    ###### Fond n°1 ######
+
+    # Troposphère (15 km)   
+    vertices = [(0,0),(1000,0),(1000,15),(0,15),(0,0)]
+    codes = [Path.MOVETO,Path.LINETO,Path.LINETO,Path.LINETO,Path.CLOSEPOLY]
+    path = PyPlot.matplotlib.path.Path(vertices, codes)
+    pathpatch = PyPlot.matplotlib.patches.PathPatch(path, facecolor="#48cae4", edgecolor="#48cae4", alpha=1, zorder=-1)
+    ax.add_patch(pathpatch)
+    PyPlot.art3D.pathpatch_2d_to_3d(pathpatch, z=1000, zdir="y")
+
+    # Stratosphère (15-50 km)
+    vertices = [(0,15),(1000,15),(1000,50),(0,50),(0,0)]
+    codes = [Path.MOVETO,Path.LINETO,Path.LINETO,Path.LINETO,Path.CLOSEPOLY]
+    path = PyPlot.matplotlib.path.Path(vertices, codes)
+    pathpatch = PyPlot.matplotlib.patches.PathPatch(path, facecolor="#00b4d8", edgecolor="#00b4d8", alpha=1, zorder=-1)
+    ax.add_patch(pathpatch)
+    PyPlot.art3D.pathpatch_2d_to_3d(pathpatch, z=1000, zdir="y")
+
+    # Mésosphère (50-85 km)
+    vertices = [(0,50),(1000,50),(1000,85),(0,85),(0,0)]
+    codes = [Path.MOVETO,Path.LINETO,Path.LINETO,Path.LINETO,Path.CLOSEPOLY]
+    path = PyPlot.matplotlib.path.Path(vertices, codes)
+    pathpatch = PyPlot.matplotlib.patches.PathPatch(path, facecolor="#0096c7", edgecolor="#0096c7", alpha=1, zorder=-1)
+    ax.add_patch(pathpatch)
+    PyPlot.art3D.pathpatch_2d_to_3d(pathpatch, z=1000, zdir="y")
+
+    # Thermosphère (85-500 km)
+    vertices = [(0,85),(1000,85),(1000,500),(0,500),(0,0)]
+    codes = [Path.MOVETO,Path.LINETO,Path.LINETO,Path.LINETO,Path.CLOSEPOLY]
+    path = PyPlot.matplotlib.path.Path(vertices, codes)
+    pathpatch = PyPlot.matplotlib.patches.PathPatch(path, facecolor="#0077b6", edgecolor="#0077b6", alpha=1, zorder=-1)
+    ax.add_patch(pathpatch)
+    PyPlot.art3D.pathpatch_2d_to_3d(pathpatch, z=1000, zdir="y")
+
+    ###### Fond n°2 ######
+
+    # Troposphère (15 km)   
+    vertices = [(0,0),(1000,0),(1000,15),(0,15),(0,0)]
+    codes = [Path.MOVETO,Path.LINETO,Path.LINETO,Path.LINETO,Path.CLOSEPOLY]
+    path = PyPlot.matplotlib.path.Path(vertices, codes)
+    pathpatch = PyPlot.matplotlib.patches.PathPatch(path, facecolor="#48cae4", edgecolor="#48cae4", alpha=1, zorder=-1)
+    ax.add_patch(pathpatch)
+    PyPlot.art3D.pathpatch_2d_to_3d(pathpatch, z=0, zdir="x")
+
+    # Stratosphère (15-50 km)
+    vertices = [(0,15),(1000,15),(1000,50),(0,50),(0,0)]
+    codes = [Path.MOVETO,Path.LINETO,Path.LINETO,Path.LINETO,Path.CLOSEPOLY]
+    path = PyPlot.matplotlib.path.Path(vertices, codes)
+    pathpatch = PyPlot.matplotlib.patches.PathPatch(path, facecolor="#00b4d8", edgecolor="#00b4d8", alpha=1, zorder=-1)
+    ax.add_patch(pathpatch)
+    PyPlot.art3D.pathpatch_2d_to_3d(pathpatch, z=0, zdir="x")
+
+    # Mésosphère (50-85 km)
+    vertices = [(0,50),(1000,50),(1000,85),(0,85),(0,0)]
+    codes = [Path.MOVETO,Path.LINETO,Path.LINETO,Path.LINETO,Path.CLOSEPOLY]
+    path = PyPlot.matplotlib.path.Path(vertices, codes)
+    pathpatch = PyPlot.matplotlib.patches.PathPatch(path, facecolor="#0096c7", edgecolor="#0096c7", alpha=1, zorder=-1)
+    ax.add_patch(pathpatch)
+    PyPlot.art3D.pathpatch_2d_to_3d(pathpatch, z=0, zdir="x")
+
+    # Thermosphère (85-500 km)
+    vertices = [(0,85),(1000,85),(1000,500),(0,500),(0,0)]
+    codes = [Path.MOVETO,Path.LINETO,Path.LINETO,Path.LINETO,Path.CLOSEPOLY]
+    path = PyPlot.matplotlib.path.Path(vertices, codes)
+    pathpatch = PyPlot.matplotlib.patches.PathPatch(path, facecolor="#0077b6", edgecolor="#0077b6", alpha=1, zorder=-1)
+    ax.add_patch(pathpatch)
+    PyPlot.art3D.pathpatch_2d_to_3d(pathpatch, z=0, zdir="x")
+
+# Zone déploiement
+Path = PyPlot.matplotlib.path.Path
+vertices = [(-10,-10),(-10,10),(10,10),(10,-10),(-10,-10)]
+codes = [Path.MOVETO,Path.LINETO,Path.LINETO,Path.LINETO,Path.CLOSEPOLY]
+path = PyPlot.matplotlib.path.Path([e .+ (500, 500) for e in vertices], codes)
+pathpatch = PyPlot.matplotlib.patches.PathPatch(path, facecolor="darkorange", zorder=20, alpha=1)
+ax.add_patch(pathpatch)
+PyPlot.art3D.pathpatch_2d_to_3d(pathpatch, z=1, zdir="z")
+
+
+
+
+
+
+#######
+
+    fig = figure()
+    ax = fig.add_subplot(111, projection="3d")
+    fig.set_facecolor("#14213d")
+    ax.set_facecolor("#14213d")
+    #axis("off")
+    #ax.grid(false)
+
+
+####
+
+
+    # Soleil
+    #nb_points = 300
+    #theta = range(0, 2*pi, length=nb_points)
+    #X = 500 .+ 1200*cos.(theta)
+    #Y = 500 .+ 1200*sin.(theta)
+    #push!(liste_points, ax.plot([X[t]], [Y[t]], [70], color="darkorange", alpha=1, marker="o", markersize=80, zorder=100, clip_on=false))
+

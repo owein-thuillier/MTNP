@@ -1,0 +1,389 @@
+
+fig = figure()
+ax = Axes3D(fig, azim=-5, elev=15) 
+fig.set_facecolor("black")
+ax.set_facecolor("black")
+xlim(0,1000)
+ylim(0,1000)
+#axis("off")
+#ax.grid(false)
+Poly3DCollection = PyPlot.art3D.Poly3DCollection
+verts = [
+(-10,-10,0.1),
+(-10,10,0.1),
+(10,10,0.1),
+(10,-10,0.1),
+]
+poly = Poly3DCollection([[e .+ (500, 500) for e in verts]
+], alpha=1, color="white", zorder=10)
+ax.add_collection3d(poly)
+
+    # Surface
+    x = [0 0; 1000 1000]
+    y = [0 1000; 0 1000]
+    z = [0 0; 0 0]
+    plot_surface(x,y,z, color="#2d6a4f", alpha=1, shade=false) 
+    # Grille
+
+
+    # Bordures
+    ax.plot([0,1000], [0,0], [0,0], color="#40916c", linewidth=1, zorder=10)
+    ax.plot([0,0], [0,1000], [0,0], color="#40916c", linewidth=1, zorder=10)
+    ax.plot([0,1000], [1000,1000], [0,0], color="#40916c", linewidth=1, zorder=10)
+    ax.plot([1000,1000], [0,1000], [0,0], color="#40916c", linewidth=1, zorder=10)
+
+    # Plan tombant 1
+    x = [0 1000; 0 1000]
+    y = [0 0; 0 0]
+    z = [0 0; -500 -500]
+    plot_surface(x,y,z, color="#40916c", alpha=0.9, shade=false)
+
+    # Plan tombant 2
+    x = [1000 1000; 1000 1000]
+    y = [0 1000; 0 1000]
+    z = [0 0; -500 -500]
+    plot_surface(x,y,z, color="#40916c", alpha=0.9, shade=false)    
+
+    ###### Fond n°1 ######
+
+    # Troposphère (15 km)
+    x = [0 1000; 0 1000]
+    y = [1000 1000; 1000 1000]
+    z = [0 0; 15 15]
+    plot_surface(x,y,z, color="#48cae4", alpha=0.9, shade=false, zorder=-1)
+
+    # Stratosphère (15-50 km)
+    x = [0 1000; 0 1000]
+    y = [1000 1000; 1000 1000]
+    z = [15 15; 50 50]
+    plot_surface(x,y,z, color="#00b4d8", alpha=0.9, shade=false, zorder=-1)
+
+    # Mésosphère (50-85 km)
+    x = [0 1000; 0 1000]
+    y = [1000 1000; 1000 1000]
+    z = [50 50; 85 85]
+    plot_surface(x,y,z, color="#0096c7", alpha=0.9, shade=false, zorder=-1)
+
+    # Thermosphère (85-500 km)
+    x = [0 1000; 0 1000]
+    y = [1000 1000; 1000 1000]
+    z = [85 85; 500 500]
+    plot_surface(x,y,z, color="#0077b6", alpha=0.9, shade=false, zorder=-1)
+
+   ###### Fond n°2 ######
+
+    # Troposphère (15 km)
+    x = [0 0; 0 0]
+    y = [0 1000; 0 1000]
+    z = [0 0; 15 15]
+    plot_surface(x,y,z, color="#48cae4", alpha=0.9, shade=false, zorder=-1)
+
+    # Stratosphère (15-50 km)
+    x = [0 0; 0 0]
+    y = [0 1000; 0 1000]
+    z = [15 15; 50 50]
+    plot_surface(x,y,z, color="#00b4d8", alpha=0.9, shade=false, zorder=-1)
+
+    # Mésosphère (50-85 km)
+    x = [0 0; 0 0]
+    y = [0 1000; 0 1000]
+    z = [50 50; 85 85]
+    plot_surface(x,y,z, color="#0096c7", alpha=0.9, shade=false, zorder=-1)
+
+    # Thermosphère (85-500 km)
+    x = [0 0; 0 0]
+    y = [0 1000; 0 1000]
+    z = [85 85; 500 500]
+    plot_surface(x,y,z, color="#0077b6", alpha=0.9, shade=false, zorder=-1)  
+         
+    nb_points = 100
+                theta = range(0, 2 * pi, length=nb_points)
+                rayon = 190
+                X = 500 .+ rayon*cos.(theta)
+                Y = 500 .+ rayon*sin.(theta)
+                    ax.plot(X, Y, [0 for i in 1:length(X)], color="#ff00ff", marker=".", zorder=10, markersize=4, alpha=0.5)
+
+
+    # Troposphère (15 km)
+    x = [ ; 0 1000]
+    y = [1000 1000; 1000 1000]
+    z = [0 0; 15 15]
+    plot_surface(x,y,z, color="#48cae4", alpha=0.9, shade=false, zorder=-1)
+
+vertices = [(0,0),(0,100),(1000,100),(1000,0),(0,0)]
+codes = [Path.MOVETO,Path.LINETO,Path.LINETO,Path.LINETO,Path.CLOSEPOLY]
+path = PyPlot.matplotlib.path.Path(vertices, codes)
+pathpatch = PyPlot.matplotlib.patches.PathPatch(path, facecolor="blue", alpha=1)
+ax.add_patch(pathpatch)
+PyPlot.art3D.pathpatch_2d_to_3d(pathpatch, z=1000, zdir="y")
+
+vertices = [
+(0, 1000, 0),
+(1000,1000,0),
+(0,1000,50),
+(1000,1000,50),
+]
+ax.add_collection3d(PyPlot.art3D.Poly3DCollection([vertices]))
+  
+fig = figure()
+ax = Axes3D(fig, azim=-5, elev=15) 
+xlim(0,1000)
+ylim(0,1000)
+zlim(0,100)
+x = [0 0; 1000 1000]
+y = [0 1000; 0 1000]
+z = [0 0; 0 0]
+plot_surface(x,y,z, color="#2d6a4f", alpha=0.9, shade=false, zorder=1) 
+Path = PyPlot.matplotlib.path.Path
+vertices = [
+(-10,-10),
+(-10,10),
+(10,10),
+(10,-10),
+(-10,-10)
+]
+codes = [
+ Path.MOVETO,
+ Path.LINETO,
+ Path.LINETO,
+ Path.LINETO,
+ Path.CLOSEPOLY
+]
+
+path = PyPlot.matplotlib.path.Path([e .+ (500, 500) for e in vertices], codes)
+pathpatch = PyPlot.matplotlib.patches.PathPatch(path, facecolor="darkorange", alpha=1, zorder=10)
+ax.add_patch(pathpatch)
+PyPlot.art3D.pathpatch_2d_to_3d(pathpatch, z=10, zdir="z")
+
+
+
+x = [-10 -10; 10 10]
+y = [-10 10; -10 10]
+z = [0 0; 0 0]
+
+
+vertices = [
+(-10,-10),
+(-10,10),
+(10,10),
+(10,-10),
+(-10,-10)
+]
+
+path = PyPlot.matplotlib.path.Path([e .+ (500, 500) for e in vertices], codes)
+pathpatch = PyPlot.matplotlib.patches.PathPatch(path, facecolor="darkorange", alpha=1, zorder=10)
+ax.add_patch(pathpatch)
+PyPlot.art3D.pathpatch_2d_to_3d(pathpatch, z=10, zdir="y")
+
+ax.plot([500], [500], [0], color="darkorange", marker="s", linestyle="", markersize=10, alpha=1, zorder=11, zdir="y") 
+
+
+
+x = [-10, 10]
+y1 = [10, 10]
+y2 = [-10, -10]
+ax.add_collection3d(fill_between(x.+500, y1.+500, y2.+500,facecolor="darkorange", zorder=100), zs=10, zdir="z")
+
+
+
+
+path = PyPlot.matplotlib.path.Path([e .+ (500, 500) for e in vertices], codes)
+pathpatch = PyPlot.matplotlib.patches.PathPatch(path, facecolor="white", )
+PyPlot.art3D.Patch3D(pathpatch, zs=0)
+
+
+
+
+
+
+
+
+
+piste = PyPlot.matplotlib.path.Path(verts, codes)
+piste = PyPlot.art3D.PathPatch3D(piste, zs=0, zdir="z")
+ax.add_patch(piste)
+
+
+# Fonctionne 
+
+
+plot([500], [500], [100], color="white", marker=markerPiste, linestyle="", size=10, zorder=50)
+
+text_path = PyPlot.matplotlib.text.TextPath((0, 0), "Test", size=10)
+trans = PyPlot.matplotlib.transforms.Affine2D().rotate(0).translate(0, 10)
+p1 = PyPlot.matplotlib.patches.PathPatch(trans.transform_path(text_path))
+ax.add_patch(p1)
+PyPlot.art3D.pathpatch_2d_to_3d(p1, z=50, zdir="z")
+
+# rouge : ff0000
+# jaune : ffff00
+# vert : 00ff00
+# lime : 88ff00
+# bleu : 0000ff
+# bleu turquoise : 00ffff
+# violet : 8000ff
+# fushia : ff00ff
+
+
+#######
+
+
+py"""
+from mpl_toolkits.mplot3d import proj3d
+from matplotlib import text as mtext
+def draw_bis(self, renderer): 
+    proj = proj3d.proj_trans_points(
+            [self._position3d, self._position3d + self._dir_vec], renderer.M)
+    self.set_position((proj[0][0], proj[1][0]))
+    mtext.Text.draw(self, renderer)
+    self.stale = False
+"""
+#PyPlot.art3D.Text3D.draw = py"draw_bis"
+
+######### Ciel
+
+    ###### Fond n°1 ######
+
+    # Troposphère (15 km)   
+    vertices = [(0,0),(1000,0),(1000,15),(0,15),(0,0)]
+    codes = [Path.MOVETO,Path.LINETO,Path.LINETO,Path.LINETO,Path.CLOSEPOLY]
+    path = PyPlot.matplotlib.path.Path(vertices, codes)
+    pathpatch = PyPlot.matplotlib.patches.PathPatch(path, facecolor="#48cae4", edgecolor="#48cae4", alpha=1, zorder=-1)
+    ax.add_patch(pathpatch)
+    PyPlot.art3D.pathpatch_2d_to_3d(pathpatch, z=1000, zdir="y")
+
+    # Stratosphère (15-50 km)
+    vertices = [(0,15),(1000,15),(1000,50),(0,50),(0,0)]
+    codes = [Path.MOVETO,Path.LINETO,Path.LINETO,Path.LINETO,Path.CLOSEPOLY]
+    path = PyPlot.matplotlib.path.Path(vertices, codes)
+    pathpatch = PyPlot.matplotlib.patches.PathPatch(path, facecolor="#00b4d8", edgecolor="#00b4d8", alpha=1, zorder=-1)
+    ax.add_patch(pathpatch)
+    PyPlot.art3D.pathpatch_2d_to_3d(pathpatch, z=1000, zdir="y")
+
+    # Mésosphère (50-85 km)
+    vertices = [(0,50),(1000,50),(1000,85),(0,85),(0,0)]
+    codes = [Path.MOVETO,Path.LINETO,Path.LINETO,Path.LINETO,Path.CLOSEPOLY]
+    path = PyPlot.matplotlib.path.Path(vertices, codes)
+    pathpatch = PyPlot.matplotlib.patches.PathPatch(path, facecolor="#0096c7", edgecolor="#0096c7", alpha=1, zorder=-1)
+    ax.add_patch(pathpatch)
+    PyPlot.art3D.pathpatch_2d_to_3d(pathpatch, z=1000, zdir="y")
+
+    # Thermosphère (85-500 km)
+    vertices = [(0,85),(1000,85),(1000,500),(0,500),(0,0)]
+    codes = [Path.MOVETO,Path.LINETO,Path.LINETO,Path.LINETO,Path.CLOSEPOLY]
+    path = PyPlot.matplotlib.path.Path(vertices, codes)
+    pathpatch = PyPlot.matplotlib.patches.PathPatch(path, facecolor="#0077b6", edgecolor="#0077b6", alpha=1, zorder=-1)
+    ax.add_patch(pathpatch)
+    PyPlot.art3D.pathpatch_2d_to_3d(pathpatch, z=1000, zdir="y")
+
+    ###### Fond n°2 ######
+
+    # Troposphère (15 km)   
+    vertices = [(0,0),(1000,0),(1000,15),(0,15),(0,0)]
+    codes = [Path.MOVETO,Path.LINETO,Path.LINETO,Path.LINETO,Path.CLOSEPOLY]
+    path = PyPlot.matplotlib.path.Path(vertices, codes)
+    pathpatch = PyPlot.matplotlib.patches.PathPatch(path, facecolor="#48cae4", edgecolor="#48cae4", alpha=1, zorder=-1)
+    ax.add_patch(pathpatch)
+    PyPlot.art3D.pathpatch_2d_to_3d(pathpatch, z=0, zdir="x")
+
+    # Stratosphère (15-50 km)
+    vertices = [(0,15),(1000,15),(1000,50),(0,50),(0,0)]
+    codes = [Path.MOVETO,Path.LINETO,Path.LINETO,Path.LINETO,Path.CLOSEPOLY]
+    path = PyPlot.matplotlib.path.Path(vertices, codes)
+    pathpatch = PyPlot.matplotlib.patches.PathPatch(path, facecolor="#00b4d8", edgecolor="#00b4d8", alpha=1, zorder=-1)
+    ax.add_patch(pathpatch)
+    PyPlot.art3D.pathpatch_2d_to_3d(pathpatch, z=0, zdir="x")
+
+    # Mésosphère (50-85 km)
+    vertices = [(0,50),(1000,50),(1000,85),(0,85),(0,0)]
+    codes = [Path.MOVETO,Path.LINETO,Path.LINETO,Path.LINETO,Path.CLOSEPOLY]
+    path = PyPlot.matplotlib.path.Path(vertices, codes)
+    pathpatch = PyPlot.matplotlib.patches.PathPatch(path, facecolor="#0096c7", edgecolor="#0096c7", alpha=1, zorder=-1)
+    ax.add_patch(pathpatch)
+    PyPlot.art3D.pathpatch_2d_to_3d(pathpatch, z=0, zdir="x")
+
+    # Thermosphère (85-500 km)
+    vertices = [(0,85),(1000,85),(1000,500),(0,500),(0,0)]
+    codes = [Path.MOVETO,Path.LINETO,Path.LINETO,Path.LINETO,Path.CLOSEPOLY]
+    path = PyPlot.matplotlib.path.Path(vertices, codes)
+    pathpatch = PyPlot.matplotlib.patches.PathPatch(path, facecolor="#0077b6", edgecolor="#0077b6", alpha=1, zorder=-1)
+    ax.add_patch(pathpatch)
+    PyPlot.art3D.pathpatch_2d_to_3d(pathpatch, z=0, zdir="x")
+
+
+########## Ciel
+
+
+    # Troposphère (15 km)
+    x = [0 1000; 0 1000]
+    y = [1000 1000; 1000 1000]
+    z = [0 0; 15 15]
+    plot_surface(x,y,z, color="#48cae4", alpha=1, shade=false)
+
+    # Stratosphère (15-50 km)
+    x = [0 1000; 0 1000]
+    y = [1000 1000; 1000 1000]
+    z = [15 15; 50 50]
+    plot_surface(x,y,z, color="#00b4d8", alpha=1, shade=false)
+
+    # Mésosphère (50-85 km)
+    x = [0 1000; 0 1000]
+    y = [1000 1000; 1000 1000]
+    z = [50 50; 85 85]
+    plot_surface(x,y,z, color="#0096c7", alpha=1, shade=false)
+
+    # Thermosphère (85-500 km)
+    x = [0 1000; 0 1000]
+    y = [1000 1000; 1000 1000]
+    z = [85 85; 500 500]
+    plot_surface(x,y,z, color="#0077b6", alpha=1, shade=false)
+
+   ###### Fond n°2 ######
+
+    # Troposphère (15 km)
+    x = [0 0; 0 0]
+    y = [0 1000; 0 1000]
+    z = [0 0; 15 15]
+    plot_surface(x,y,z, color="#48cae4", alpha=1, shade=false)
+
+    # Stratosphère (15-50 km)
+    x = [0 0; 0 0]
+    y = [0 1000; 0 1000]
+    z = [15 15; 50 50]
+    plot_surface(x,y,z, color="#00b4d8", alpha=1, shade=false)
+
+    # Mésosphère (50-85 km)
+    x = [0 0; 0 0]
+    y = [0 1000; 0 1000]
+    z = [50 50; 85 85]
+    plot_surface(x,y,z, color="#0096c7", alpha=1, shade=false)
+
+    # Thermosphère (85-500 km)
+    x = [0 0; 0 0]
+    y = [0 1000; 0 1000]
+    z = [85 85; 500 500]
+    plot_surface(x,y,z, color="#0077b6", alpha=1, shade=false)
+
+######### Sol
+    # Meshgrid
+    # Ancienne méthode, génère des ralentissements
+    #xIt = 0:50:1000
+    #yIt = 0:50:1000
+    #x = xIt' .* ones(length(xIt))
+    #y = ones(length(yIt))' .* yIt
+    #z = x .* 0
+    #plot_surface(x, y, z, color="#239b5e", edgecolor="none", alpha=1, shade=false) # 2d6a4f
+    # Surface
+    x = [0 0; 1000 1000]
+    y = [0 1000; 0 1000]
+    z = [0 0; 0 0]
+    plot_surface(x,y,z, color="#40916c", alpha=1, shade=false) 
+
+    # Bordures
+    ax.plot([0,1000], [0,0], [0,0], color="#2d6a4f", linewidth=1, zorder=10)
+    ax.plot([0,0], [0,1000], [0,0], color="#2d6a4f", linewidth=1, zorder=10)
+    ax.plot([0,1000], [1000,1000], [0,0], color="#2d6a4f", linewidth=1, zorder=10)
+    ax.plot([1000,1000], [0,1000], [0,0], color="#2d6a4f", linewidth=1, zorder=10)
+
+
+
